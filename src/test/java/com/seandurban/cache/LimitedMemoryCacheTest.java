@@ -18,13 +18,13 @@ class LimitedMemoryCacheTest {
         DataSource testData = new TestDataSource(0);
         LimitedMemoryCache<Integer> cache = new LimitedMemoryCache<>(testData, 1);
 
-        assertEquals(cache.retrieve("key1"), 0);
+        assertEquals(0, cache.retrieve("key1"));
         //From cache
-        assertEquals(cache.retrieve("key1"), 0);
+        assertEquals(0, cache.retrieve("key1"));
         //Retrieve unique key
-        assertEquals(cache.retrieve("key2"), 1);
+        assertEquals(1, cache.retrieve("key2"));
         // Retrieve unique, ensure evicted
-        assertEquals(cache.retrieve("key2"), 1);
-        assertEquals(cache.retrieve("key1"), 2);
+        assertEquals(1, cache.retrieve("key2"));
+        assertEquals(2, cache.retrieve("key1"));
     }
 }

@@ -22,10 +22,8 @@ public class DisabledCacheTest {
     void retrieve() {
         Cache<Integer> disabledCache = new DisabledCache(testData);
 
-        int res1 = disabledCache.retrieve("key");
-        assertEquals(res1,0);
+        assertEquals(0, disabledCache.retrieve("key"));
 
-        int res2 = disabledCache.retrieve("key");
-        assertEquals(res2, 1);
+        assertEquals(1, disabledCache.retrieve("key"));
     }
 }
