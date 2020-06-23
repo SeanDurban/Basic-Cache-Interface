@@ -4,10 +4,10 @@ import com.seandurban.datasource.DataSource;
 
 import java.util.HashMap;
 
-public class LimitedMemoryCache implements Cache {
-    HashMap<String, Object> cache;
+public class LimitedMemoryCache<T> implements Cache {
+    HashMap<String, T> cache;
 
-    DataSource dataSource;
+    DataSource<T> dataSource;
 
     int maxSize;
 
@@ -17,24 +17,25 @@ public class LimitedMemoryCache implements Cache {
         this.maxSize = maxSize;
     }
 
-    public Object retrieve(String key) {
+    public T retrieve(String key) {
         if(cache.containsKey(key)) {
             return cache.get(key);
         }
         else {
-            Object dataEntry = dataSource.retrieve(key);
+            T dataEntry = dataSource.retrieve(key);
             addToCache(key, dataEntry);
             return dataEntry;
         }
     }
 
-    void addToCache(String key, Object dataEntry) {
+    void addToCache(String key, T dataEntry) {
         if(cache.size() >= maxSize) {
             evict();
         }
         cache.put(key, dataEntry);
     }
 
+    //Randomly evicts
     void evict() {
         if(cache.size() > 0) {
             String keyToEvict = (String) cache.keySet().toArray()[0];

@@ -16,7 +16,7 @@ class LimitedMemoryCacheTest {
     @Test
     void retrieve() {
         DataSource testData = new TestDataSource(0);
-        LimitedMemoryCache cache = new LimitedMemoryCache(testData, 1);
+        LimitedMemoryCache<Integer> cache = new LimitedMemoryCache<>(testData, 1);
 
         assertEquals(cache.retrieve("key1"), 0);
         //From cache
